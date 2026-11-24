@@ -40,6 +40,18 @@
   .row .note { color: var(--muted); font-size: 14px; }
   .row .years { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
   footer { margin-top: 56px; color: var(--muted); font-size: 14px; }
+  .quote { margin-top: 64px; text-align: center; }
+  .quote blockquote { display: inline-block; position: relative; padding: 28px 40px 24px;
+                      transform: rotate(-2deg); }
+  .quote blockquote::before { content: "\201C"; position: absolute; left: -6px; top: -42px;
+                      font-family: Fraunces, Georgia, serif; font-size: 140px; line-height: 1; color: var(--accent); opacity: .35; }
+  .quote p { font-family: Fraunces, Georgia, serif; font-style: italic; font-weight: 600;
+             font-size: clamp(44px, 9vw, 76px); line-height: 1; letter-spacing: -.01em; }
+  .quote sup { font-family: Inter, system-ui, sans-serif; font-style: normal; font-weight: 400;
+               font-size: 13px; letter-spacing: 0; vertical-align: super; margin-left: 4px; }
+  .quote sup a { color: var(--accent); text-decoration: none; }
+  .quote sup a:hover { text-decoration: underline; }
+  .quote cite { display: block; margin-top: 16px; font-style: normal; color: var(--muted); font-size: 15px; }
   footer a { color: var(--accent); }
   @media (max-width: 600px) {
     .hero { grid-template-columns: 1fr; gap: 24px; text-align: center; }
@@ -58,6 +70,13 @@
       <a class="btn" href="mailto:27.june.kim@yisseoul.org">Get in touch</a>
     </div>
   </div>
+
+  <section class="quote">
+    <blockquote>
+      <p>trust me bro<sup><a href="https://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="no">[citation needed]</a></sup></p>
+      <cite>— June Young Kim, future chemical engineer, on reactor safety</cite>
+    </blockquote>
+  </section>
 
   <section>
     <h2>Education</h2>
