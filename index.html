@@ -6,7 +6,7 @@
 <title>June Young Kim (trust me bro)</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;700&family=Montserrat:wght@800&family=Press+Start+2P&family=Nanum+Myeongjo:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Comic+Neue:wght@700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;700&family=Montserrat:wght@800&family=Press+Start+2P&family=Nanum+Myeongjo:wght@800&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #f6f4ef; --ink: #1c1f24; --muted: #5d636b; --line: #dcd8cf;
@@ -161,7 +161,7 @@
   .stat .lol { color: var(--red); font-family: "Black Han Sans", system-ui, sans-serif; font-weight: 400; font-size: 15px; animation: blink 1s steps(2) infinite; }
   @keyframes rainbow { to { background-position: -200% 0; } }
 
-  footer { margin-top: 56px; color: var(--muted); font-size: 14px; }
+  footer { margin-top: 56px; padding-bottom: 72px; color: var(--muted); font-size: 14px; }
   footer a { color: var(--accent); }
   footer p { margin-top: 8px; }
   footer .ie { font: 12px/1.5 Gulim, "굴림", Dotum, "돋움", AppleGothic, sans-serif; }
@@ -233,6 +233,99 @@
   kbd { padding: 0 5px; border: 1px solid var(--line); border-bottom-width: 3px; border-radius: 4px; background: var(--card);
         color: var(--ink); font: 12px/1.6 "Courier New", monospace; }
 
+  /* scroll progress */
+  .scrollbar { position: absolute; left: 0; bottom: -3px; height: 3px; width: calc(var(--sp, 0) * 100%);
+               background: linear-gradient(90deg, #ff004c, #ff9a00, #ffe14d, #2bd96b, #19a7ff, #a34bff); }
+
+  /* top bar + 진지 모드 */
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin: -24px 0 32px; }
+  .topbar .bgm { margin: 0 0 0 auto; }
+  .serious { padding: 5px 12px; border: 2px solid var(--ink); border-radius: 999px; background: var(--card); color: var(--ink);
+             font: 700 12px/1.3 Inter, system-ui, sans-serif; cursor: pointer; box-shadow: 3px 3px 0 var(--ink); }
+  .serious:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  body.comic, body.comic * { font-family: "Comic Sans MS", "Comic Neue", "Chalkboard SE", cursive !important; }
+  body.comic h1 { color: #ff00c8; transform: rotate(-3deg); text-shadow: 3px 3px 0 #00e5ff; }
+  body.comic main { transform: rotate(-.6deg); }
+  body.comic .lede, body.comic .gungseo { color: #a23cff; }
+
+  /* 실시간 검색어 */
+  .rank { margin-top: 56px; padding: 12px 16px 10px; border: 2px solid var(--ink); border-radius: 10px; background: var(--card); }
+  .rank-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+  .rank-head b { font-size: 15px; }
+  .rank-head span { color: var(--muted); font-size: 12px; }
+  .rank ol { list-style: none; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(5, auto); grid-auto-flow: column; column-gap: 24px; }
+  .rank li { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 5px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
+  .rank li em { flex: none; width: 18px; font-style: normal; font-weight: 700; color: #19b35a; }
+  .rank li:first-child em { color: var(--red); }
+  .rank .term { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rank .up, .rank .down, .rank .same, .rank .rk-new { flex: none; font-size: 11px; font-variant-numeric: tabular-nums; }
+  .rank .up { color: var(--red); }
+  .rank .down { color: #3b82f6; }
+  .rank .same { color: var(--muted); }
+  .rank .rk-new { padding: 0 4px; border-radius: 3px; background: var(--red); color: #fff; font-size: 10px; }
+
+  /* 단톡방 */
+  .chat { max-width: 400px; margin: 16px auto 0; overflow: hidden; border-radius: 18px; background: #abc1d1; color: #1c1f24;
+          box-shadow: 0 16px 40px rgba(0,0,0,.2); font: 14px/1.4 Inter, system-ui, sans-serif; }
+  .chat-head { display: flex; justify-content: space-between; padding: 12px 16px; background: #9db3c4; font-weight: 700; }
+  .chat-body { display: flex; flex-direction: column; gap: 8px; padding: 12px 12px 16px; }
+  .chat .day, .chat .sys { align-self: center; padding: 2px 10px; border-radius: 999px; background: rgba(0,0,0,.18); color: #fff; font-size: 11px; text-align: center; }
+  .chat .av { flex: none; align-self: flex-start; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 14px;
+              background: #fff; font-size: 20px; font-style: normal; }
+  .msg { display: flex; align-items: flex-end; gap: 6px; }
+  .msg, .chat .sys, .typing { transition: opacity .25s, transform .25s, visibility .25s; }
+  .msg.pending, .chat .sys.pending, .typing.pending { opacity: 0; transform: translateY(8px); visibility: hidden; }
+  .msg b { display: block; margin-bottom: 3px; font-size: 12px; font-weight: 500; }
+  .msg p { max-width: 230px; padding: 7px 11px; border-radius: 4px 14px 14px 14px; background: #fff; word-break: keep-all; }
+  .msg time { flex: none; color: #4b5560; font-size: 10px; }
+  .msg time em { display: block; color: #e6b800; font-style: normal; font-weight: 700; text-align: right; }
+  .msg.me { justify-content: flex-end; }
+  .msg.me p { border-radius: 14px 4px 14px 14px; background: #ffe94d; }
+  .typing { display: flex; align-items: center; gap: 6px; }
+  .dots { display: inline-flex; gap: 4px; padding: 11px 12px; border-radius: 4px 14px 14px 14px; background: #fff; }
+  .dots i { width: 6px; height: 6px; border-radius: 50%; background: #8a8b91; animation: dot 1.2s infinite; }
+  .dots i:nth-child(2) { animation-delay: .2s; }
+  .dots i:nth-child(3) { animation-delay: .4s; }
+  @keyframes dot { 30% { transform: translateY(-4px); opacity: .5; } }
+
+  /* 비커군 */
+  .mascot { position: fixed; left: 12px; bottom: 12px; z-index: 70; transition: transform .4s; }
+  .mascot.away { transform: translateX(calc(-100% - 24px)); }
+  .beaker { display: block; width: 58px; height: 64px; padding: 0; border: 0; background: none; cursor: pointer;
+            transform-origin: 50% 100%; animation: wobble 2.4s ease-in-out infinite; }
+  .beaker svg { display: block; width: 100%; height: 100%; filter: drop-shadow(2px 3px 0 rgba(0,0,0,.25)); }
+  @keyframes wobble { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+  .bubble { position: absolute; left: 64px; bottom: 34px; width: max-content; max-width: min(240px, calc(100vw - 100px));
+            padding: 9px 26px 9px 12px; border: 2px solid #1c1f24; border-radius: 12px 12px 12px 2px; background: #fffbe6; color: #1c1f24;
+            box-shadow: 3px 3px 0 #1c1f24; font: 13px/1.4 Inter, system-ui, sans-serif;
+            opacity: 0; transform: translateY(6px) scale(.95); transform-origin: 0 100%; pointer-events: none; transition: opacity .2s, transform .2s; }
+  .bubble.show { opacity: 1; transform: none; pointer-events: auto; }
+  .bubble b { display: block; color: #1f6f78; font-size: 11px; }
+  .bubble button { position: absolute; top: 3px; right: 5px; border: 0; background: none; color: #1c1f24; font-size: 12px; cursor: pointer; }
+
+  /* blue screen */
+  .bsod { position: fixed; inset: 0; z-index: 110; display: grid; place-items: center; padding: 24px; background: #0000aa; color: #fff;
+          font: 15px/1.6 "Courier New", Consolas, monospace; cursor: pointer; }
+  .bsod[hidden] { display: none; }
+  .bsod > div { max-width: 640px; }
+  .bsod h3 { display: table; margin: 0 auto 22px; padding: 0 8px; background: #aaa; color: #0000aa; font: inherit; font-weight: 700; }
+  .bsod p { margin-bottom: 14px; }
+  .bsod .cur { animation: blink 1s steps(2) infinite; }
+
+  /* 더보기 + gift */
+  .more { margin-top: 40px; text-align: center; }
+  .more button { padding: 10px 28px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--ink);
+                 font: 500 14px Inter, system-ui, sans-serif; cursor: pointer; }
+  .more button:disabled { opacity: .5; cursor: not-allowed; }
+  .more button.bump { animation: bump .4s; }
+  .more p { min-height: 1.6em; margin-top: 10px; color: var(--muted); font-size: 14px; }
+  .gift { margin-top: 4px; padding: 8px 14px; border: 2px dashed var(--accent); border-radius: 10px; background: none; color: var(--ink);
+          font: 500 14px Inter, system-ui, sans-serif; cursor: pointer; }
+  .gift.shake { animation: jitter .12s linear infinite; }
+  .confetti { position: fixed; z-index: 90; pointer-events: none; font-size: 24px; transform: translate(-50%, 0);
+              animation: confetti 1.3s cubic-bezier(.2,.8,.4,1) forwards; }
+  @keyframes confetti { to { transform: translate(calc(-50% + var(--dx)), var(--dy)) rotate(var(--r)); opacity: 0; } }
+
   @media (max-width: 600px) {
     .hero { grid-template-columns: 1fr; gap: 28px; text-align: center; }
     .photo-wrap { width: 160px; margin: 0 auto; }
@@ -240,6 +333,11 @@
     .stamp { width: 74px; height: 74px; font-size: 14px; right: -30px; }
     .stat { grid-template-columns: 1fr auto; gap: 6px 12px; }
     .stat .bar { grid-column: 1 / -1; grid-row: 2; }
+    .rank ol { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; }
+    .topbar { justify-content: center; }
+    .topbar .bgm { margin: 0; }
+    .beaker { width: 44px; height: 50px; }
+    .bubble { left: 48px; bottom: 26px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -258,16 +356,20 @@
 </div>
 <script>try { if (!sessionStorage.getItem('jyk-loaded')) document.getElementById('loader').hidden = false; } catch (e) {}</script>
 <div class="breaking" aria-label="Breaking news">
+  <i class="scrollbar" aria-hidden="true"></i>
   <span class="tag">속보</span>
   <div class="ticker"><div class="ticker-track">
-    <span>🚨 June Young Kim, 화학공학 전공 공식 선언 ⚗️ · 전문가들 “일단 믿어봄” · 원자로 안전 질문엔 “trust me bro”로 일관 · 홈페이지 로딩 99%에서 멈췄다는 제보 잇따라 · BGM 틀면 귀 책임 안 짐 · 실화냐? · no cap fr fr · 기사 더보기 (없음) 🚨</span>
-    <span aria-hidden="true">🚨 June Young Kim, 화학공학 전공 공식 선언 ⚗️ · 전문가들 “일단 믿어봄” · 원자로 안전 질문엔 “trust me bro”로 일관 · 홈페이지 로딩 99%에서 멈췄다는 제보 잇따라 · BGM 틀면 귀 책임 안 짐 · 실화냐? · no cap fr fr · 기사 더보기 (없음) 🚨</span>
+    <span>🚨 June Young Kim, 화학공학 전공 공식 선언 ⚗️ · 전문가들 “일단 믿어봄” · 원자로 안전 질문엔 “trust me bro”로 일관 · 홈페이지 로딩 99%에서 멈췄다는 제보 잇따라 · BGM 틀면 귀 책임 안 짐 · 비커군 꿀팁 제공 중 (도움 안 됨) · 실시간 검색어 1위 등극 · 실화냐? · no cap fr fr · 기사 더보기 (없음) 🚨</span>
+    <span aria-hidden="true">🚨 June Young Kim, 화학공학 전공 공식 선언 ⚗️ · 전문가들 “일단 믿어봄” · 원자로 안전 질문엔 “trust me bro”로 일관 · 홈페이지 로딩 99%에서 멈췄다는 제보 잇따라 · BGM 틀면 귀 책임 안 짐 · 비커군 꿀팁 제공 중 (도움 안 됨) · 실시간 검색어 1위 등극 · 실화냐? · no cap fr fr · 기사 더보기 (없음) 🚨</span>
   </div></div>
 </div>
 <main>
+  <div class="topbar">
+  <button type="button" class="serious" id="serious" aria-pressed="false">진지 모드 ON 🧐</button>
   <div class="bgm">
     <button type="button" id="bgm" aria-pressed="false" aria-label="Play BGM">▶</button>
     <div class="bgm-info"><b>BGM</b><div class="bgm-title"><span>trust me bro (feat. vine boom) — June Young Kim · 도토리 5개 · trust me bro (feat. vine boom) — June Young Kim · 도토리 5개 ·&nbsp;</span></div></div>
+  </div>
   </div>
   <div class="hero">
     <div class="photo-wrap">
@@ -289,6 +391,22 @@
       <p class="fine">*self-certified</p>
     </div>
   </div>
+
+  <section class="rank" aria-label="실시간 검색어">
+    <div class="rank-head"><b>🔍 실시간 검색어</b><span id="rankTime">(조작됨)</span></div>
+    <ol id="rankList">
+      <li><em>1</em><span class="term">June Young Kim trust me bro</span><span class="same">-</span></li>
+      <li><em>2</em><span class="term">원자로 안전 브리핑</span><span class="same">-</span></li>
+      <li><em>3</em><span class="term">99% 로딩 멈춤</span><span class="same">-</span></li>
+      <li><em>4</em><span class="term">도토리 환불</span><span class="same">-</span></li>
+      <li><em>5</em><span class="term">화학쌤 교무실</span><span class="same">-</span></li>
+      <li><em>6</em><span class="term">deal with it 안경</span><span class="same">-</span></li>
+      <li><em>7</em><span class="term">비커군 정체</span><span class="same">-</span></li>
+      <li><em>8</em><span class="term">1,000,000번째 방문자 상품</span><span class="same">-</span></li>
+      <li><em>9</em><span class="term">6.02×10²³ 아무 데나</span><span class="same">-</span></li>
+      <li><em>10</em><span class="term">aura 9000% 실화</span><span class="same">-</span></li>
+    </ol>
+  </section>
 
   <section class="tt-wrap" aria-label="Quote: trust me bro">
     <div class="tt" id="tt">
@@ -332,6 +450,27 @@
     <p class="tt-cite">— June Young Kim, future chemical engineer, on reactor safety<sup> <a href="https://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="no">[citation needed]</a></sup></p>
   </section>
 
+  <section aria-label="단톡방">
+    <h2>단톡방 <small>(유출)</small></h2>
+    <div class="chat" id="chat">
+      <div class="chat-head"><span>‹ 화학 2반 (32)</span><span aria-hidden="true">🔍 ☰</span></div>
+      <div class="chat-body" id="chatBody">
+        <div class="day">오늘</div>
+        <div class="msg"><i class="av">🧑‍🏫</i><div><b>화학쌤</b><p>내일까지 실험 보고서 제출하세요</p></div><time>오후 11:40</time></div>
+        <div class="msg"><i class="av">🧑‍🏫</i><div><b>화학쌤</b><p>June Young Kim 학생 보고서는 어디 있나요?</p></div><time>오후 11:41</time></div>
+        <div class="msg me"><time><em>1</em>오후 11:41</time><p>trust me bro</p></div>
+        <div class="msg"><i class="av">🧑‍🏫</i><div><b>화학쌤</b><p>?</p></div><time>오후 11:41</time></div>
+        <div class="msg"><i class="av">🧑</i><div><b>반장</b><p>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p></div><time>오후 11:42</time></div>
+        <div class="msg"><i class="av">👤</i><div><b>익명의 학우</b><p>레전드 갱신</p></div><time>오후 11:42</time></div>
+        <div class="msg me"><time><em>1</em>오후 11:42</time><p>99% 했어요 🙏</p></div>
+        <div class="msg"><i class="av">🧑‍🏫</i><div><b>화학쌤</b><p>교무실로 와</p></div><time>오후 11:43</time></div>
+        <div class="sys">화학쌤님이 June Young Kim님을 교무실로 초대했습니다.</div>
+        <div class="msg me"><time><em>1</em>오후 11:43</time><p>🗿</p></div>
+        <div class="typing" aria-label="화학쌤 is typing"><i class="av">🧑‍🏫</i><span class="dots"><i></i><i></i><i></i></span></div>
+      </div>
+    </div>
+  </section>
+
   <section>
     <h2>Education <small>(lore)</small></h2>
     <div class="row">
@@ -362,12 +501,18 @@
     <div class="stat"><span>수면</span><div class="bar"><i style="--w:12%"></i></div><b>3h</b></div>
   </section>
 
+  <div class="more">
+    <button type="button" id="more">더보기 ▼</button>
+    <p id="moreMsg" aria-live="polite"></p>
+  </div>
+
   <footer>
     <a href="mailto:27.june.kim@yisseoul.org">27.june.kim@yisseoul.org</a>
     <p class="ie">본 홈페이지는 Internet Explorer 6.0, 1024×768 해상도에 최적화되어 있습니다.</p>
     <p><span class="counter">TODAY 7 · TOTAL 000,042 (본인 포함)</span></p>
     <p>🥽 Best viewed with safety goggles on.</p>
     <p>💡 Tip: 키보드로 <kbd>b</kbd> <kbd>r</kbd> <kbd>o</kbd> 쳐보셈</p>
+    <p><button type="button" class="gift" id="gift">🎁 끝까지 내린 사람만 받는 선물</button></p>
     <p>© 2026 June Young Kim. All rights reserved. Trust me bro.</p>
   </footer>
 </main>
@@ -382,6 +527,29 @@
   </div>
 </div>
 <div class="mega" id="mega" aria-hidden="true">TRUST<br>ME<br>BRO</div>
+<div class="mascot" id="mascot">
+  <div class="bubble" id="tip" role="status" aria-live="polite"><b>비커군의 꿀팁</b><span id="tipText"></span><button type="button" id="tipX" aria-label="Close tip">✕</button></div>
+  <button type="button" class="beaker" id="beaker" aria-label="비커군: next tip">
+    <svg viewBox="0 0 64 72" aria-hidden="true">
+      <rect x="19" y="2" width="26" height="5" rx="2" fill="#e8f6f8" stroke="#1c1f24" stroke-width="3"/>
+      <path d="M22 7H42V26L58 62Q60 68 54 68H10Q4 68 6 62L22 26Z" fill="#e8f6f8" stroke="#1c1f24" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M13.1 46H50.9L58 62Q60 68 54 68H10Q4 68 6 62Z" fill="#39d98a" stroke="#1c1f24" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="18" cy="58" r="2" fill="#fff" opacity=".7"/><circle cx="46" cy="54" r="1.6" fill="#fff" opacity=".7"/>
+      <circle cx="26" cy="37" r="5" fill="#fff" stroke="#1c1f24" stroke-width="2"/><circle cx="27" cy="38" r="2.2" fill="#1c1f24"/>
+      <circle cx="38" cy="37" r="5" fill="#fff" stroke="#1c1f24" stroke-width="2"/><circle cx="39" cy="38" r="2.2" fill="#1c1f24"/>
+      <path d="M27 54q5 5 10 0" fill="none" stroke="#1c1f24" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </button>
+</div>
+<div class="bsod" id="bsod" role="alertdialog" aria-label="Fatal exception" hidden>
+  <div>
+    <h3>JUNE YOUNG KIM OS</h3>
+    <p>치명적인 예외 TRUST_ME_BRO 가 0028:C0FFEE 에서 발생했습니다. 현재 실행 중인 화학공학자가 종료됩니다.</p>
+    <p>*&nbsp; 아무 키나 누르면 계속합니다. (진짜임)<br>*&nbsp; CTRL+ALT+DEL 을 누르면 aura 가 전부 사라집니다.</p>
+    <p>그러니까 이름 5번 누르지 말랬잖아</p>
+    <p>계속하려면 아무 키나 누르십시오<span class="cur">_</span></p>
+  </div>
+</div>
 <script>
 (() => {
   const photo = document.querySelector('.photo');
@@ -578,6 +746,151 @@
       setTimeout(() => s.remove(), 700);
     }, { passive: true });
   }
+  // scroll progress
+  const root = document.documentElement;
+  const onScroll = () => {
+    const max = root.scrollHeight - innerHeight;
+    root.style.setProperty('--sp', max > 0 ? Math.min(1, scrollY / max) : 0);
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // 진지 모드
+  const serious = document.getElementById('serious');
+  serious.addEventListener('click', () => {
+    const off = document.body.classList.toggle('comic');
+    serious.textContent = off ? '진지 모드 OFF 🤪' : '진지 모드 ON 🧐';
+    serious.setAttribute('aria-pressed', off);
+  });
+
+  // 실시간 검색어
+  const rankList = document.getElementById('rankList'), rankTime = document.getElementById('rankTime');
+  const TERMS = [...rankList.querySelectorAll('.term')].map(el => el.textContent);
+  let order = TERMS.map((_, i) => i), prevOrder = order.slice();
+  function renderRank(first) {
+    rankList.textContent = '';
+    order.forEach((t, pos) => {
+      const was = prevOrder.indexOf(t);
+      const li = document.createElement('li');
+      const em = document.createElement('em'), term = document.createElement('span'), delta = document.createElement('span');
+      em.textContent = pos + 1;
+      term.className = 'term'; term.textContent = TERMS[t];
+      if (!first && pos > 0 && Math.random() < .1) { delta.className = 'rk-new'; delta.textContent = 'NEW'; }
+      else if (!first && was > pos) { delta.className = 'up'; delta.textContent = '▲' + (was - pos); }
+      else if (!first && was < pos) { delta.className = 'down'; delta.textContent = '▼' + (pos - was); }
+      else { delta.className = 'same'; delta.textContent = '-'; }
+      li.append(em, term, delta);
+      rankList.appendChild(li);
+    });
+    const d = new Date();
+    rankTime.textContent = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} 기준 (조작됨)`;
+  }
+  renderRank(true);
+  if (!reduce) setInterval(() => {
+    prevOrder = order.slice();
+    const rest = order.slice(1);
+    for (let k = 0; k < 2; k++) {
+      const a = Math.floor(Math.random() * rest.length), b = Math.floor(Math.random() * rest.length);
+      [rest[a], rest[b]] = [rest[b], rest[a]];
+    }
+    order = [order[0], ...rest];
+    renderRank(false);
+  }, 3500);
+
+  // 단톡방: messages arrive one by one
+  const chat = document.getElementById('chat');
+  const chatItems = [...chat.querySelectorAll('.msg, .sys, .typing')];
+  if (!reduce && 'IntersectionObserver' in window) {
+    chatItems.forEach(m => m.classList.add('pending'));
+    const io = new IntersectionObserver(entries => {
+      if (!entries.some(e => e.isIntersecting)) return;
+      io.disconnect();
+      chatItems.forEach((m, i) => setTimeout(() => m.classList.remove('pending'), 300 + i * 650));
+    }, { threshold: .3 });
+    io.observe(chat);
+  }
+
+  // 비커군
+  const TIPS = [
+    '이름 5번 클릭하면 안 됨. 진짜 안 됨.',
+    '사진 눌러 보셈 😎',
+    '키보드로 b-r-o 쳐보셈',
+    '몰 계산 모르겠으면 6.02×10²³ 아무 데나 곱하면 됨 (trust me bro)',
+    '고글 쓰면 aura +500',
+    'BGM 틀고 볼륨 최대로 (책임 안 짐)',
+    '실험 보고서는 “99% 했어요”라고 내면 됨 (안 됨)',
+    '진지 모드 끄지 마셈. 진짜로.',
+    '이 팁은 도움이 안 됩니다',
+  ];
+  const mascot = document.getElementById('mascot'), tip = document.getElementById('tip'), tipText = document.getElementById('tipText');
+  let tipIdx = 0, tipHide, tipNext;
+  function showTip(text) {
+    clearTimeout(tipHide); clearTimeout(tipNext);
+    tipText.textContent = text || TIPS[tipIdx++ % TIPS.length];
+    tip.classList.add('show');
+    tipHide = setTimeout(() => tip.classList.remove('show'), 7000);
+    tipNext = setTimeout(() => showTip(), 18000);
+  }
+  document.getElementById('beaker').addEventListener('click', () => showTip());
+  document.getElementById('tipX').addEventListener('click', () => {
+    clearTimeout(tipHide); clearTimeout(tipNext);
+    tip.classList.remove('show');
+    mascot.classList.add('away');
+    setTimeout(() => { mascot.classList.remove('away'); showTip('다시 옴 ㅎ'); }, 20000);
+  });
+  setTimeout(() => showTip(), loader && !loader.hidden ? 4500 : 2500);
+
+  // blue screen: click the name 5 times
+  const bsod = document.getElementById('bsod');
+  let nameClicks = 0, nameTimer;
+  document.querySelector('h1').addEventListener('click', () => {
+    clearTimeout(nameTimer);
+    nameTimer = setTimeout(() => { nameClicks = 0; }, 1500);
+    if (++nameClicks >= 5) { nameClicks = 0; bsod.hidden = false; boom(); }
+  });
+  bsod.addEventListener('click', () => { bsod.hidden = true; });
+  addEventListener('keydown', e => {
+    if (bsod.hidden) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    bsod.hidden = true;
+  }, true);
+
+  // 더보기
+  const MORE = ['더 볼 거 없음 ㅅㄱ', '없다니까', '진짜 없음', '...', '알겠어 하나만: trust me bro', '이제 진짜 끝 ㅂㅂ'];
+  const moreBtn = document.getElementById('more'), moreMsg = document.getElementById('moreMsg');
+  let moreN = 0;
+  moreBtn.addEventListener('click', () => {
+    moreMsg.textContent = MORE[moreN++];
+    moreBtn.classList.remove('bump'); void moreBtn.offsetWidth; moreBtn.classList.add('bump');
+    if (moreN >= MORE.length) { moreBtn.disabled = true; moreBtn.textContent = '더보기 (품절)'; }
+  });
+
+  // gift: 꽝
+  const gift = document.getElementById('gift');
+  let giftOpened = false;
+  gift.addEventListener('click', () => {
+    if (giftOpened) { gift.textContent = '🎁 한 번만 됨 ㅋ'; return; }
+    giftOpened = true;
+    gift.classList.add('shake');
+    setTimeout(() => {
+      gift.classList.remove('shake');
+      gift.textContent = '📦 꽝! 다음 기회에 (trust me bro)';
+      const r = gift.getBoundingClientRect();
+      for (let i = 0; i < 16; i++) {
+        const c = document.createElement('span');
+        c.className = 'confetti';
+        c.textContent = ['🎉', '🎊', '💀', '🧪', '✨'][i % 5];
+        c.style.left = (r.left + r.width / 2) + 'px';
+        c.style.top = r.top + 'px';
+        c.style.setProperty('--dx', (Math.random() * 300 - 150) + 'px');
+        c.style.setProperty('--dy', (-120 - Math.random() * 200) + 'px');
+        c.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 1400);
+      }
+      boom();
+    }, 900);
+  });
 })();
 </script>
 </body>
