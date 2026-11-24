@@ -177,6 +177,12 @@
   .bgm-info { display: flex; min-width: 0; }
   .bgm-title { width: 220px; max-width: 50vw; overflow: hidden; white-space: nowrap; }
   .bgm-title span { display: inline-block; animation: scroll 12s linear infinite; }
+  .bgm-player { flex-basis: 100%; display: flex; justify-content: flex-end; }
+  .bgm-player[hidden] { display: none; }
+  .bgm-box { width: min(356px, 100%); padding: 4px; border: 1px solid #9aa3ad; border-radius: 6px;
+             background: linear-gradient(#fdfdfd, #d9dee4); box-shadow: 0 1px 0 #fff inset; }
+  .bgm-head { padding: 2px 4px 5px; color: #ff6a00; font: 700 12px/1.3 Gulim, "굴림", Dotum, AppleGothic, sans-serif; }
+  .bgm-slot iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 3px; background: #000; }
 
   /* TikTok comments */
   .tt-comments { position: absolute; left: 0; right: 0; bottom: 0; height: 62%; z-index: 4; display: flex; flex-direction: column;
@@ -336,6 +342,7 @@
     .rank ol { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; }
     .topbar { justify-content: center; }
     .topbar .bgm { margin: 0; }
+    .bgm-player { justify-content: center; }
     .beaker { width: 44px; height: 50px; }
     .bubble { left: 48px; bottom: 26px; }
   }
@@ -368,7 +375,13 @@
   <button type="button" class="serious" id="serious" aria-pressed="false">진지 모드 ON 🧐</button>
   <div class="bgm">
     <button type="button" id="bgm" aria-pressed="false" aria-label="Play BGM">▶</button>
-    <div class="bgm-info"><b>BGM</b><div class="bgm-title"><span>System Seoul (feat. vine boom) — June Young Kim · 도토리 5개 · System Seoul (feat. vine boom) — June Young Kim · 도토리 5개 ·&nbsp;</span></div></div>
+    <div class="bgm-info"><b>BGM</b><div class="bgm-title"><span>너 - SYSTEM SEOUL · 미니홈피 BGM · 도토리 5개 · 너 - SYSTEM SEOUL · 미니홈피 BGM · 도토리 5개 ·&nbsp;</span></div></div>
+  </div>
+  <div class="bgm-player" id="bgmPlayer" hidden>
+    <div class="bgm-box">
+      <div class="bgm-head">🎧 쥬크박스 · 도토리 5개 차감 완료</div>
+      <div class="bgm-slot"></div>
+    </div>
   </div>
   </div>
   <div class="hero">
@@ -671,40 +684,28 @@
   cmt.addEventListener('click', () => setComments(!panel.classList.contains('open')));
   panel.querySelector('.tt-c-x').addEventListener('click', () => setComments(false));
 
-  // Cyworld BGM: an original 8-bit loop
+  // Cyworld BGM: 너 - SYSTEM SEOUL, from the band's official YouTube upload.
+  // The player only loads after a click, and stays visible so people can pause it there too.
   const bgmBtn = document.getElementById('bgm');
-  const MEL = [72, 76, 79, 76, 72, 76, 79, 84, 81, 79, 76, 79, 81, 79, 76, 72,
-               74, 77, 81, 77, 74, 77, 81, 86, 84, 83, 81, 79, 77, 76, 74, 71];
-  const BASS = [48, 45, 50, 43];
-  const hz = n => 440 * Math.pow(2, (n - 69) / 12);
-  let bgmTimer = null, bgmGain = null;
-  function tone(n, t, dur, type, vol) {
-    const o = ctx.createOscillator(), g = ctx.createGain();
-    o.type = type; o.frequency.value = hz(n);
-    g.gain.setValueAtTime(vol, t);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g).connect(bgmGain);
-    o.start(t); o.stop(t + dur + .02);
-  }
-  function bar() {
-    const step = 60 / 150 / 2, t0 = ctx.currentTime + .05;
-    MEL.forEach((n, i) => tone(n, t0 + i * step, step * .9, 'square', .05));
-    BASS.forEach((n, b) => { for (let q = 0; q < 4; q++) tone(n, t0 + (b * 8 + q * 2) * step, step * 1.8, 'triangle', .12); });
-    bgmTimer = setTimeout(bar, MEL.length * step * 1000 - 40);
-  }
+  const bgmPlayer = document.getElementById('bgmPlayer');
+  const bgmSlot = bgmPlayer.querySelector('.bgm-slot');
+  const YT_ID = 'mZ4vjIC3tmw';
   bgmBtn.addEventListener('click', () => {
-    try {
-      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
-      if (bgmTimer) {
-        clearTimeout(bgmTimer); bgmTimer = null;
-        bgmGain.disconnect();
-        bgmBtn.textContent = '▶'; bgmBtn.setAttribute('aria-pressed', 'false');
-      } else {
-        bgmGain = ctx.createGain(); bgmGain.connect(ctx.destination);
-        bar();
-        bgmBtn.textContent = '❚❚'; bgmBtn.setAttribute('aria-pressed', 'true');
-      }
-    } catch (e) {}
+    const on = bgmBtn.getAttribute('aria-pressed') !== 'true';
+    bgmSlot.textContent = '';
+    if (on) {
+      const f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + YT_ID + '?autoplay=1&playsinline=1&rel=0&loop=1&playlist=' + YT_ID;
+      f.title = '너 - SYSTEM SEOUL (Official Audio)';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture';
+      f.referrerPolicy = 'strict-origin-when-cross-origin';
+      f.allowFullscreen = true;
+      bgmSlot.appendChild(f);
+    }
+    bgmPlayer.hidden = !on;
+    bgmBtn.textContent = on ? '■' : '▶';
+    bgmBtn.setAttribute('aria-pressed', String(on));
+    bgmBtn.setAttribute('aria-label', on ? 'Stop BGM' : 'Play BGM');
   });
 
   // 1,000,000th visitor
